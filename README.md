@@ -6,7 +6,7 @@
 
 | 항목 | 내용 |
 | --- | --- |
-| 기간 | 2026.04 ~ 진행 중 |
+| 기간 | 2026.09 ~ 진행 중 |
 | 인원 | 1인 (설계, 구축, 운영) |
 | 스택 | AWS (VPC, EC2, ALB, Auto Scaling, RDS, S3, IAM, SSM), Docker, Spring Boot, FastAPI |
 
@@ -47,13 +47,13 @@ flowchart LR
 Spring Boot는 스케줄러 상태를 서버가 가지고 있어 두 대를 동시에 운영할 수 없으므로 단일 인스턴스 + 자동 복구로, FastAPI는 유사도 연산으로 CPU 부하가 커지므로 CPU 60% 대상 추적 수평 확장(1~3대)으로 구성했습니다. → [03-compute](docs/03-compute.md)
 
 **2. 계층별 네트워크 격리와 최소 접근 제어**
-Public / App / DB 서브넷을 분리하고 DB 서브넷에는 인터넷 경로를 두지 않았습니다. ALB → Spring → RDS로 이어지는 Security Group 체인으로 필요한 통신만 허용하며, SSH 포트 없이 SSM Session Manager로 서버를 관리합니다. → [01-network](docs/01-network.md), [02-security](docs/02-security.md)
+Public / App / DB 서브넷을 분리하고 DB 서브넷에는 인터넷 경로를 두지 않았습니다. ALB → Spring → RDS로 이어지는 Security Group 체인으로 필요한 통신만 허용하며, SSH 포트 없이 SSM Session Manager로 서버를 관리합니다. → [01.network](docs/01.network.md), [02.security](docs/02.security.md)
 
 **3. 내부 ALB로 FastAPI 비노출**
-Spring이 내부 ALB를 통해서만 AI 분석 서버를 호출하도록 해 FastAPI를 외부에 노출하지 않았습니다. → [03-compute](docs/03-compute.md)
+Spring이 내부 ALB를 통해서만 AI 분석 서버를 호출하도록 해 FastAPI를 외부에 노출하지 않았습니다. → [03.compute](docs/03.compute.md)
 
 **4. 비용을 고려한 선택과 그 한계 명시**
-NAT Gateway 대신 NAT Instance, 최소 인스턴스 운영, DB 단일 AZ 등 비용 중심의 선택을 하고, 그에 따른 한계와 개선 계획을 함께 기록했습니다. → [04-data](docs/04-data.md)
+NAT Gateway 대신 NAT Instance, 최소 인스턴스 운영, DB 단일 AZ 등 비용 중심의 선택을 하고, 그에 따른 한계와 개선 계획을 함께 기록했습니다. → [04-data](docs/04.data.md)
 
 ---
 
@@ -68,7 +68,7 @@ NAT Gateway 대신 NAT Instance, 최소 인스턴스 운영, DB 단일 AZ 등 �
 | RDS 스냅샷 복구 | 측정 예정 |
 | NAT Instance 장애 영향 | 측정 예정 |
 
-측정 방법과 로그는 [06-failure-test](docs/06-failure-test.md)에 정리합니다.
+측정 방법과 로그는 [06.failure-test](docs/06.failure-test.md)에 정리합니다.
 
 ---
 
@@ -89,12 +89,12 @@ NAT Gateway 대신 NAT Instance, 최소 인스턴스 운영, DB 단일 AZ 등 �
 
 | 문서 | 내용 |
 | --- | --- |
-| [01-network](docs/01-network.md) | Region/AZ, VPC, 서브넷, 라우팅, NAT Instance |
-| [02-security](docs/02-security.md) | Security Group, SSM, IAM |
-| [03-compute](docs/03-compute.md) | EC2, ALB, Auto Scaling, Health Check |
-| [04-data](docs/04-data.md) | RDS, S3(벡터 파일), 가용성 |
-| [05-deploy-ops](docs/05-deploy-ops.md) | 배포, 모니터링 |
-| [06-failure-test](docs/06-failure-test.md) | 장애 테스트 방법과 결과 |
+| [01.network](docs/01.network.md) | Region/AZ, VPC, 서브넷, 라우팅, NAT Instance |
+| [02.security](docs/02.security.md) | Security Group, SSM, IAM |
+| [03.compute](docs/03.compute.md) | EC2, ALB, Auto Scaling, Health Check |
+| [04.data](docs/04.data.md) | RDS, S3(벡터 파일), 가용성 |
+| [05.deploy-ops](docs/05-deploy-ops.md) | 배포, 모니터링 |
+| [06.failure-test](docs/06.failure-test.md) | 장애 테스트 방법과 결과 |
 | [troubleshooting](troubleshooting/) | 트러블슈팅 기록 |
 
 ---
