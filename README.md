@@ -3,10 +3,13 @@
 Momantle은 단일 EC2에서 운영하던 서비스를 AWS 3-Tier 구조로 재설계하고, 장애 테스트로 복구 시간을 검증하는 프로젝트입니다.
 초기에는 하나의 EC2 인스턴스에서 Spring Boot, FastAPI, MySQL을 통합 운영했습니다. 이 구조에서 서버 자원 관리, 데이터베이스 운영, 네트워크 보안, 장애 대응 측면의 한계를 확인했고, 기존 인프라를 분석해 서비스별로 독립적인 운영 환경과 확장성, 안정성을 갖춘 인프라를 설계하고 구축했습니다.
 인프라의 구성 과정은 docs/에, 개선 이력은 CHANGELOG에, 각 기술 선택의 근거와 트러블슈팅은 문서별로 함께 기록합니다.
-항목	내용
-기간	2026.04 ~ 진행 중
-인원	1인 (설계, 구축, 운영)
-스택	AWS (VPC, EC2, ALB, Auto Scaling, RDS, S3, IAM, SSM), Docker, Spring Boot, FastAPI
+| 항목 | 내용 |
+| --- | --- |
+| 기간 | 2026.04 ~ 진행 중 |
+| 인원 | 1인 (설계, 구축, 운영) |
+| 스택 | AWS (VPC, EC2, ALB, Auto Scaling, RDS, S3, IAM, SSM), Docker, Spring Boot, FastAPI |
+
+---
 
 
 ## Architecture
