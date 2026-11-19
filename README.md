@@ -33,13 +33,14 @@ flowchart LR
 ## Why
 
 | 기존 문제 | 개선 |
-| --- | --- |
-| Spring Boot와 FastAPI가 같은 서버 자원을 공유해 서로 영향을 줌 | 서비스별 EC2 분리, 서비스별 Auto Scaling |
-| EC2에 DB를 직접 설치해 백업, 복구, 패치를 직접 관리 | RDS 관리형 DB로 전환 |
-| 서버와 DB의 네트워크 접근 범위가 불명확 | Public / App / DB 3계층 서브넷, Security Group 체인 |
-| 수동 배포, 모니터링 부재 | Docker 기반 배포, 모니터링 체계 (진행 중) |
-
----
+|---|---|
+| Spring Boot와 FastAPI가 동일한 서버 자원을 공유해 서로의 성능에 영향을 줌 | 서비스별 EC2 분리 및 독립적인 Auto Scaling Group 구성 |
+| 단일 EC2 중심 구조로 인스턴스 장애 발생 시 전체 서비스가 중단될 수 있음 | 2개 AZ에 걸친 인프라 구성과 ASG를 통한 인스턴스 자동 복구 체계 구축 |
+| 특정 AZ에 장애가 발생하면 서비스 전체에 영향을 줄 수 있음 | Public / App / DB Subnet을 2개 AZ에 분산 배치하여 가용 영역 장애에 대응할 수 있는 기반 마련 |
+| EC2에 DB를 직접 설치해 백업, 복구, 패치를 직접 관리해야 함 | Amazon RDS 관리형 DB로 전환하여 데이터베이스 운영 부담 감소 |
+| 서버와 DB의 네트워크 접근 범위가 불명확함 | Public / App / DB 3계층 서브넷 및 Security Group 체인을 통한 네트워크 접근 제어 |
+| 수동 배포와 모니터링 부재로 장애 감지 및 대응이 어려움 | Docker 기반 배포 환경 구축 및 CloudWatch를 활용한 리소스 모니터링 체계 마련 |
+| AI 연산 부하가 증가해도 서비스별 확장 및 장애 대응이 어려움 | FastAPI 전용 ASG 구성으로 독립적인 인스턴스 관리 및 향후 CPU 기반 자동 확장 기반 마련 |
 
 ## Key Design Points
 
